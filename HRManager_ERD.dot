@@ -1,0 +1,89 @@
+digraph HRManagerERD {
+  graph [rankdir=LR, splines=ortho, nodesep=0.45, ranksep=0.85, pad=0.25, bgcolor="#F7F9FC", label="HRManagerDB | ER Diagram", labelloc=t, labeljust=l, fontsize=24, fontname="DejaVu Sans", fontcolor="#14233B"];
+  node [shape=plain, fontname="DejaVu Sans", fontsize=10];
+  edge [color="#59708B", penwidth=1.35, arrowsize=0.7, fontname="DejaVu Sans", fontsize=9, fontcolor="#344A63"];
+
+  Departments [label=<
+  <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" COLOR="#A5B4C5">
+    <TR><TD BGCOLOR="#19324F"><FONT COLOR="white"><B>Departments</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT" BGCOLOR="#E8EEF5"><B>PK</B> DepartmentID</TD></TR>
+    <TR><TD ALIGN="LEFT">DepartmentName (UQ)</TD></TR>
+    <TR><TD ALIGN="LEFT">Description, IsActive</TD></TR>
+  </TABLE>>];
+  Positions [label=<
+  <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" COLOR="#A5B4C5">
+    <TR><TD BGCOLOR="#19324F"><FONT COLOR="white"><B>Positions</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT" BGCOLOR="#E8EEF5"><B>PK</B> PositionID</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>FK</B> DepartmentID</TD></TR>
+    <TR><TD ALIGN="LEFT">PositionTitle, MinSalary, MaxSalary</TD></TR>
+  </TABLE>>];
+  Employees [label=<
+  <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" COLOR="#A5B4C5">
+    <TR><TD BGCOLOR="#19324F"><FONT COLOR="white"><B>Employees</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT" BGCOLOR="#E8EEF5"><B>PK</B> EmployeeID</TD></TR>
+    <TR><TD ALIGN="LEFT">EmployeeNumber (UQ), Email (UQ)</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>FK</B> DepartmentID, PositionID</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>FK</B> ManagerID - self reference</TD></TR>
+    <TR><TD ALIGN="LEFT">HireDate, EmploymentStatus</TD></TR>
+  </TABLE>>];
+  SalaryHistory [label=<
+  <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" COLOR="#A5B4C5">
+    <TR><TD BGCOLOR="#286B63"><FONT COLOR="white"><B>SalaryHistory</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT" BGCOLOR="#E5F3F0"><B>PK</B> SalaryHistoryID</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>FK</B> EmployeeID</TD></TR>
+    <TR><TD ALIGN="LEFT">SalaryAmount, EffectiveFrom/To</TD></TR>
+  </TABLE>>];
+  LeaveTypes [label=<
+  <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" COLOR="#A5B4C5">
+    <TR><TD BGCOLOR="#286B63"><FONT COLOR="white"><B>LeaveTypes</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT" BGCOLOR="#E5F3F0"><B>PK</B> LeaveTypeID</TD></TR>
+    <TR><TD ALIGN="LEFT">LeaveTypeName (UQ), AnnualAllowanceDays</TD></TR>
+  </TABLE>>];
+  LeaveRequests [label=<
+  <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" COLOR="#A5B4C5">
+    <TR><TD BGCOLOR="#286B63"><FONT COLOR="white"><B>LeaveRequests</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT" BGCOLOR="#E5F3F0"><B>PK</B> LeaveRequestID</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>FK</B> EmployeeID, LeaveTypeID</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>FK</B> ApprovedByEmployeeID</TD></TR>
+    <TR><TD ALIGN="LEFT">StartDate, EndDate, RequestStatus</TD></TR>
+  </TABLE>>];
+  AttendanceRecords [label=<
+  <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" COLOR="#286B63">
+    <TR><TD BGCOLOR="#286B63"><FONT COLOR="white"><B>AttendanceRecords</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT" BGCOLOR="#E5F3F0"><B>PK</B> AttendanceID</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>FK</B> EmployeeID</TD></TR>
+    <TR><TD ALIGN="LEFT">AttendanceDate, CheckIn, CheckOut, Status</TD></TR>
+  </TABLE>>];
+  PerformanceReviews [label=<
+  <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" COLOR="#A5B4C5">
+    <TR><TD BGCOLOR="#286B63"><FONT COLOR="white"><B>PerformanceReviews</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT" BGCOLOR="#E5F3F0"><B>PK</B> PerformanceReviewID</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>FK</B> EmployeeID, ReviewerEmployeeID</TD></TR>
+    <TR><TD ALIGN="LEFT">ReviewPeriodStart/End, Score</TD></TR>
+  </TABLE>>];
+  TrainingCourses [label=<
+  <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" COLOR="#A5B4C5">
+    <TR><TD BGCOLOR="#19324F"><FONT COLOR="white"><B>TrainingCourses</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT" BGCOLOR="#E8EEF5"><B>PK</B> TrainingCourseID</TD></TR>
+    <TR><TD ALIGN="LEFT">CourseName (UQ), DurationHours, Cost</TD></TR>
+  </TABLE>>];
+  EmployeeTrainings [label=<
+  <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" COLOR="#A5B4C5">
+    <TR><TD BGCOLOR="#286B63"><FONT COLOR="white"><B>EmployeeTrainings</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT" BGCOLOR="#E5F3F0"><B>PK</B> EmployeeTrainingID</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>FK</B> EmployeeID, TrainingCourseID</TD></TR>
+    <TR><TD ALIGN="LEFT">TrainingDate, CompletionStatus, Score</TD></TR>
+  </TABLE>>];
+
+  Departments -> Positions [label="1 : N"];
+  Departments -> Employees [label="1 : N"];
+  Positions -> Employees [label="1 : N\nrole within department"];
+  Employees -> SalaryHistory [label="1 : N"];
+  Employees -> LeaveRequests [label="1 : N requester"];
+  LeaveTypes -> LeaveRequests [label="1 : N"];
+  Employees -> AttendanceRecords [label="1 : N"];
+  Employees -> PerformanceReviews [label="1 : N subject / reviewer"];
+  Employees -> EmployeeTrainings [label="1 : N"];
+  TrainingCourses -> EmployeeTrainings [label="1 : N"];
+  Employees -> Employees [label="manager hierarchy", color="#C17B3D", fontcolor="#9B5B22", constraint=false];
+}
